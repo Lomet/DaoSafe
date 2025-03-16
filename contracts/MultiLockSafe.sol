@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.28;
 
-import "./SafeStorage.sol";
+import "./SafeOperations.sol";
 
-contract MultiLockSafe is SafeStorage {
+contract MultiLockSafe is SafeOperations {
     constructor(uint256 _openFee, uint256 _withdrawalRate)
-        SafeStorage(_openFee, _withdrawalRate)
+        SafeOperations(_openFee, _withdrawalRate)
     {}
 
     function openSafe(Close calldata closeData) external payable {
@@ -17,7 +17,7 @@ contract MultiLockSafe is SafeStorage {
 
         safe.closeData = closeData;
 
-        emit SafeOpened(msg.sender, closeData.lockers);
+        emit LockSwapped(msg.sender, closeData.lockers);
     }
 
     function deposit(address token, uint256 amount) external {
